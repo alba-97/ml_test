@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ml-test.fly.dev']
+ALLOWED_HOSTS = ['ml-test-wp5k.onrender.com']
 
 
 # Application definition
