@@ -24,7 +24,6 @@ pip install -r requirements.txt
 Corre las migraciones de la DB
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
