@@ -10,12 +10,12 @@ class IsMutantTests(APITestCase):
     def test_with_mutant_dna(self, mock_check_sequences):
         mock_check_sequences.return_value = 2
         url = reverse('mutant')
-        data = {"dna": [["A", "T", "G", "C", "G", "A"], 
-                        ["C", "A", "G", "T", "G", "C"], 
-                        ["T", "T", "A", "T", "G", "T"], 
-                        ["A", "G", "A", "A", "G", "G"], 
-                        ["C", "C", "C", "C", "T", "A"], 
-                        ["T", "C", "A", "C", "T", "G"]]}
+        data = {"dna": ["ATGCGA", 
+                        "CAGTGC", 
+                        "TTATGT", 
+                        "AGAAGG", 
+                        "CCCCTA", 
+                        "TCACTG"]}
         
         response = self.client.post(url, data, format='json')
         
@@ -27,12 +27,12 @@ class IsMutantTests(APITestCase):
     def test_with_human_dna(self, mock_check_sequences):
         mock_check_sequences.return_value = 1
         url = reverse('mutant')
-        data = {"dna": [["A", "T", "G", "C", "G", "A"], 
-                        ["C", "A", "G", "T", "G", "C"], 
-                        ["T", "T", "A", "T", "F", "T"], 
-                        ["A", "G", "A", "A", "G", "G"], 
-                        ["C", "A", "C", "C", "T", "A"], 
-                        ["T", "C", "A", "C", "T", "G"]]}
+        data = {"dna": ["ATGCGA",
+                        "CAGTGC",
+                        "TTATFT",
+                        "AGAAGG",
+                        "CACCTA",
+                        "TCACTG"]}
         
         response = self.client.post(url, data, format='json')
         
@@ -42,7 +42,7 @@ class IsMutantTests(APITestCase):
 
     def endpoint_with_invalid_dna(self):
         url = reverse('is_mutant')
-        data = {"dna": [["A", "T", "G", "C"], ["C", "A", "G"]]}
+        data = {"dna": ["ATGC", "CAG"]}
         
         response = self.client.post(url, data, format='json')
         
@@ -51,19 +51,19 @@ class IsMutantTests(APITestCase):
 
 class StatsViewTests(APITestCase):
     def setUp(self):
-        DNASequence.objects.create(dna=json.dumps([["A", "T", "G", "C", "G", "A"], 
-                                                   ["C", "A", "G", "T", "G", "C"], 
-                                                   ["T", "T", "A", "T", "G", "T"], 
-                                                   ["A", "G", "A", "A", "G", "G"], 
-                                                   ["C", "C", "C", "C", "T", "A"], 
-                                                   ["T", "C", "A", "C", "T", "G"]]), is_mutant=True)
+        DNASequence.objects.create(dna=json.dumps(["ATGCGA", 
+                                                   "CAGTGC", 
+                                                   "TTATGT", 
+                                                   "AGAAGG", 
+                                                   "CCCCTA", 
+                                                   "TCACTG"]), is_mutant=True)
         
-        DNASequence.objects.create(dna=json.dumps([["A", "T", "G", "C", "G", "A"], 
-                                                   ["C", "A", "G", "T", "G", "C"], 
-                                                   ["T", "T", "A", "T", "G", "T"], 
-                                                   ["A", "G", "A", "A", "G", "G"], 
-                                                   ["C", "A", "C", "C", "T", "A"], 
-                                                   ["T", "C", "A", "C", "T", "G"]]), is_mutant=False)
+        DNASequence.objects.create(dna=json.dumps(["ATGCGA", 
+                                                   "CAGTGC", 
+                                                   "TTATGT", 
+                                                   "AGAAGG", 
+                                                   "CACCTA", 
+                                                   "TCACTG"]), is_mutant=False)
     
     def stats_endpoint(self):
         url = reverse('stats')

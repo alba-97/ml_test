@@ -8,7 +8,6 @@ import json
 
 class IsMutant(APIView):
     def post(self, request):
-
         serializer = DNASequenceSerializer(data=request.data)
 
         if not serializer.is_valid():
