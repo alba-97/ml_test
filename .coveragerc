@@ -1,0 +1,7 @@
+[run]
+source = ml_test_app
+
+[report]
+omit =
+    */lib/python3/*
+    */tests.py
